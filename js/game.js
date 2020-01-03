@@ -5,12 +5,10 @@ let currentTool = "axe";
 let currentBlock = "tree";
 
 let boardMatrix = [];
-const matrix1 = {
-    col:[],
-    row:[],
-};
 
-function createEmptyMatrix (row,col){
+// generates new game board based on table
+// and adds all cells to boardMatrix for internal use
+function createEmptyMatrix (){
     const matrix = document.createElement('table');
     matrix.align = 'center';
     matrix.style.height = `750px`;
@@ -36,6 +34,7 @@ function createEmptyMatrix (row,col){
     return matrix
 }
 
+// changes the state of a cell (the image displayed)
 function setState(cell, state) {
     switch (state) {
         case "ground":
@@ -58,6 +57,7 @@ function setState(cell, state) {
     }
 }
 
+// returns the state of the cell based on the current background image
 function getState(cell) {
     switch (cell.style.background) {
         case 'url("./images/ground.jpg")':
@@ -73,6 +73,8 @@ function getState(cell) {
     }
 }
 
+// if a tool is chosen and matches the cell type - removes the image from cell
+// if block is chosen and cell is empty - puts block image in cell
 function cellOnClick(cell) {
     if (getState(cell.target) === "ground" && currentTool === "shovel"){
         setState(cell.target,"empty");
@@ -104,6 +106,7 @@ function cellOnClick(cell) {
     }
 }
 
+// sets the current tool
 function toolOnClick(tool){
     switch (tool.target.id) {
         case "axe":
@@ -125,11 +128,13 @@ function toolOnClick(tool){
     }
 }
 
+// changes the currentBlock var and the image in the block tool
 function setCurrentBlock(type){
     currentBlock = type;
     setState(document.querySelector("#block"),type) ;
 }
 
+// generates ground in cells
 function generateGround(){
     for (let row = 15 ; row < rowNum; row ++) {
         for (let cell=0; cell < colNum; cell ++) {
@@ -138,6 +143,7 @@ function generateGround(){
     }
 }
 
+// generates rock in cells
 function generateRocks() {
     for (let cell=0; cell < 10; cell ++) {
         let row = 14;
@@ -145,6 +151,7 @@ function generateRocks() {
     }
 }
 
+// generates tree cells in random location
 function generateTree() {
     let treePosition = 10 + Math.floor(Math.random() * (10));
 
@@ -160,6 +167,7 @@ function generateTree() {
     }
 }
 
+// creates new game board
 function createNewGame() {
     document.querySelector(".board").appendChild(createEmptyMatrix());
     generateGround();
