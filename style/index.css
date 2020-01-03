@@ -1,0 +1,12 @@
+.newGame {
+    background: url('../images/new_game.jpg');
+    width: 385px;
+    height: 117px;
+    margin-top: 20%
+}
+
+.textParagraph {
+    background: url('../images/scroll.jpg');
+    width: 268px;
+    height: 188px;
+}
